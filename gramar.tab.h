@@ -67,7 +67,8 @@ extern int yydebug;
     INC = 268,                     /* INC  */
     ZERA = 269,                    /* ZERA  */
     ENQUANTO = 270,                /* ENQUANTO  */
-    FACA = 271                     /* FACA  */
+    FACA = 271,                    /* FACA  */
+    VEZES = 272                    /* VEZES  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -81,7 +82,7 @@ union YYSTYPE
   int ival;
   char *sval;
 
-#line 85 "gramar.tab.h"
+#line 86 "gramar.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

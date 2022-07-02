@@ -39,6 +39,7 @@ int nFunctions = 0;
 /* Tokens De Fluxo de Comando */
 %token ENQUANTO
 %token FACA
+%token VEZES
 /* Gramatica */
 %type <sval> program varlist cmd cmds declaration comparation;
 
@@ -57,7 +58,9 @@ cmds: cmds cmd  			{char *comandos=malloc(strlen($1) + strlen($2) + 2); sprintf(
 
 // TODO Aceitar outros booleanos
 cmd:
-|	ENQUANTO ID FACA cmds FIM	{char *loop = malloc(strlen($2)+strlen($4)+16);sprintf(loop,"while(%s)\nDO\n%s\nEND",$2,$4);$$=loop;}
+|	ENQUANTO ID FACA cmds FIM			{char *loop = malloc(strlen($2)+strlen($4)+16);sprintf(loop,"while(%s)\n\tDO\n\t%s\n\tEND",$2,$4);$$=loop;}
+|	ENQUANTO comparation FACA cmds FIM	{char *loop = malloc(strlen($2)+strlen($4)+16);sprintf(loop,"while(%s)\n\tDO\n\t%s\n\tEND",$2,$4);$$=loop;}
+|	FACA ID VEZES cmds FIM           	{char *forLoop=malloc(strlen($2) + strlen($4) + 20); sprintf(forLoop, "for i=%s, 1, -1 DO\n\t%s\tEND\n", $2, $4); $$ = forLoop;}
 |	comparation;
 |	declaration;
 ;
@@ -69,8 +72,12 @@ declaration:
 
 // TODO >,< e >= e <=
 comparation:
-|	ID ASSIGN ASSIGN ID		{char *comp = malloc(strlen($1)+strlen($3)+4);sprintf(comp,"%s == %s",$1,$3);$$=comp;}
-|	ID ASSIGN ASSIGN INT	{char *comp = malloc(strlen($1)+strlen($3)+4);sprintf(comp,"%s == %s",$1,$3);$$=comp;}
+|	ID ASSIGN ASSIGN ID		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s == %s",$1,$4);$$=comp;}
+|	ID ASSIGN ASSIGN INT	{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s == %s",$1,$4);$$=comp;}
+|	ID MAIOR ASSIGN ID		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s >= %s",$1,$4);$$=comp;}
+|	ID MENOR ASSIGN ID		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s <= %s",$1,$4);$$=comp;}
+|	ID MAIOR ASSIGN INT		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s >= %s",$1,$4);$$=comp;}
+|	ID MENOR ASSIGN INT		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s <= %s",$1,$4);$$=comp;}
 ;
 
 

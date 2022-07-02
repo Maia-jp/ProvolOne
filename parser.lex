@@ -10,11 +10,14 @@ FIM             {return FIM;}
 
 ENQUANTO        {return ENQUANTO;}
 FACA            {return FACA;}
+VEZES           {return VEZES;}
 
 
 [A-Za-z]+       {yylval.sval = strdup(yytext);return ID;}
 [0-9]+          {yylval.sval = strdup(yytext); return INT;}
 "="             {return ASSIGN;}
+">"             {return MAIOR;}
+"<"             {return MENOR;}
 
 "("             {return OPENP;}
 ")"             {return CLOSEP;}
