@@ -77,7 +77,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 20 "gramar.y"
+#line 25 "gramar.y"
 
   int ival;
   char *sval;

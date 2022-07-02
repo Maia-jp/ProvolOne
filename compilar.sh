@@ -5,4 +5,4 @@ echo "Compilando Flex..."
 flex parser.lex
 
 echo "Compilando Executavel..."
-gcc lex.yy.c gramar.tab.c -ll -o OUT
+gcc lex.yy.c gramar.tab.c -ll -o provol
