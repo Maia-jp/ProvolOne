@@ -12,6 +12,10 @@ ENQUANTO        {return ENQUANTO;}
 FACA            {return FACA;}
 VEZES           {return VEZES;}
 
+SE              {return SE;}
+ENTAO           {return ENTAO;}
+SENAO           {return SENAO;}
+
 INC             {return INC;}
 ZERA            {return ZERA;}
 

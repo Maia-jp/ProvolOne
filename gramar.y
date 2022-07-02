@@ -5,6 +5,8 @@
 #include <string.h>
 #include <unistd.h>
 
+#define YYERROR_VERBOSE 1
+
 extern int yylex();
 extern int yyparse();
 extern FILE* yyin;
@@ -45,6 +47,9 @@ int FILEIO[2] = {0,0}; //{read,write}
 %token ENQUANTO
 %token FACA
 %token VEZES
+%token ENTAO
+%token SE
+%token SENAO
 /* Gramatica */
 %type <sval> program varlist cmd cmds declaration comparation;
 
@@ -63,11 +68,13 @@ cmds: cmds cmd  			{char *comandos=malloc(strlen($1) + strlen($2) + 2); sprintf(
 
 
 cmd:
-|	ENQUANTO ID FACA cmds FIM			{char *loop = malloc(strlen($2)+strlen($4)+16);sprintf(loop,"while(%s)\ndo\n\t%s\n\tend",$2,$4);$$=loop;}
-|	ENQUANTO comparation FACA cmds FIM	{char *loop = malloc(strlen($2)+strlen($4)+16);sprintf(loop,"while(%s)\ndo\n\t%s\n\tend",$2,$4);$$=loop;}
-|	FACA ID VEZES cmds FIM           	{char *forLoop=malloc(strlen($2) + strlen($4) + 20); sprintf(forLoop, "for i=%s, 1, -1 do\n\t%s\tend\n", $2, $4); $$ = forLoop;}
-| 	INC OPENP ID CLOSEP              	{char *inc=malloc(strlen($3)*2 + 5); sprintf(inc, "%s = %s+1\n",$3,$3); $$ = inc;}
-| 	ZERA OPENP ID CLOSEP             	{char *zerar=malloc(strlen($3) + 6); sprintf(zerar, "%s = 0\n",$3); $$ = zerar;};
+|	ENQUANTO ID FACA cmds FIM					{char *loop = malloc(strlen($2)+strlen($4)+16);sprintf(loop,"while(%s)\ndo\n\t%s\n\tend",$2,$4);$$=loop;}
+|	ENQUANTO comparation FACA cmds FIM			{char *loop = malloc(strlen($2)+strlen($4)+16);sprintf(loop,"while(%s)\ndo\n\t%s\n\tend",$2,$4);$$=loop;}
+|	FACA ID VEZES cmds FIM           			{char *forLoop=malloc(strlen($2) + strlen($4) + 20); sprintf(forLoop, "for i=%s, 1, -1 do\n\t%s\tend\n", $2, $4); $$ = forLoop;}
+| 	INC OPENP ID CLOSEP              			{char *inc=malloc(strlen($3)*2 + 5); sprintf(inc, "%s = %s+1\n",$3,$3); $$ = inc;}
+| 	ZERA OPENP ID CLOSEP             			{char *zerar=malloc(strlen($3) + 6); sprintf(zerar, "%s = 0\n",$3); $$ = zerar;};
+|	SE comparation ENTAO cmds FIM       		{char *condicional=malloc(strlen($2) + strlen($4) + 11); sprintf(condicional, "if %s then\n\t%s\nend", $2, $4); $$ = condicional;}
+|	SE comparation ENTAO cmds SENAO cmds FIM    {char *condicional=malloc(strlen($2) + strlen($4) + 15); sprintf(condicional, "if %s then\n\t%s\nelse\n\t%s\nend", $2, $4,$6); $$ = condicional;}
 |	comparation;
 |	declaration;
 ;
@@ -85,6 +92,10 @@ comparation:
 |	ID MENOR ASSIGN ID		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s <= %s",$1,$4);$$=comp;}
 |	ID MAIOR ASSIGN INT		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s >= %s",$1,$4);$$=comp;}
 |	ID MENOR ASSIGN INT		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s <= %s",$1,$4);$$=comp;}
+|	ID MENOR INT			{char *comp = malloc(strlen($1)+strlen($3)+3);sprintf(comp,"%s < %s",$1,$3);$$=comp;}
+|	ID MAIOR INT			{char *comp = malloc(strlen($1)+strlen($3)+3);sprintf(comp,"%s < %s",$1,$3);$$=comp;}
+|	ID MENOR ID				{char *comp = malloc(strlen($1)+strlen($3)+3);sprintf(comp,"%s < %s",$1,$3);$$=comp;}
+|	ID MAIOR ID				{char *comp = malloc(strlen($1)+strlen($3)+3);sprintf(comp,"%s < %s",$1,$3);$$=comp;}
 ;
 
 
@@ -93,16 +104,6 @@ comparation:
 
 int main(int argc, char *argv[]) {
 	//Parseia or argumentos de entrada e saida 
-	// if(argc > 1){
-	// 	for(int arg=0;arg<argc;arg++){
-	// 		if(strcmp(argv[arg],"-o")){
-				
-
-	// 			printf("Redirecionando output para saida.lua\n");
-	// 			stdout = fopen("saida.lua", "a");
-	// 		}
-	// 	}
-	// }
 	int opt;
 	char * saida;
 	char * entrada;
@@ -144,6 +145,7 @@ int main(int argc, char *argv[]) {
 }
 
 void yyerror(const char* s) {
+	closeIO();
 	fprintf(stderr, "Parse error: %s\n", s);
 	exit(1);
 }
