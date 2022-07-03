@@ -85,6 +85,9 @@ void yyerror(const char* s);
 void closeIO();
 
 int nFunctions = 0;
+extern int linenum;
+extern int wordnum;
+extern char linebuf[500];
 
 //Flags
 int FILEIO[2] = {0,0}; //{read,write}
@@ -92,7 +95,7 @@ int FILEIO[2] = {0,0}; //{read,write}
 //TODO: Verificacao de variaveis, Expressoes complexas, verficar arquivos com -Wcounterexamples, verificar shift reduce
 
 
-#line 96 "gramar.tab.c"
+#line 99 "gramar.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -535,10 +538,10 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    58,    58,    61,    62,    65,    66,    70,    71,    72,
-      73,    74,    75,    76,    77,    78,    79,    82,    83,    84,
-      88,    89,    90,    91,    92,    93,    94,    95,    96,    97,
-      98
+       0,    61,    61,    64,    65,    68,    69,    73,    74,    75,
+      76,    77,    78,    79,    80,    81,    82,    85,    86,    87,
+      91,    92,    93,    94,    95,    96,    97,    98,    99,   100,
+     101
 };
 #endif
 
@@ -1143,151 +1146,151 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: ENTRADA varlist SAIDA varlist cmds FIM  */
-#line 58 "gramar.y"
+#line 61 "gramar.y"
                                                  {printf("function foo%d (%s)\n%s\n\treturn %s\nend",nFunctions,(yyvsp[-4].sval),(yyvsp[-1].sval),(yyvsp[-2].sval));nFunctions++;}
-#line 1149 "gramar.tab.c"
+#line 1152 "gramar.tab.c"
     break;
 
   case 3: /* varlist: varlist ID  */
-#line 61 "gramar.y"
+#line 64 "gramar.y"
                                 {char *multparam=malloc(strlen((yyvsp[-1].sval))+strlen((yyvsp[0].sval)));sprintf(multparam, "%s, %s", (yyvsp[-1].sval), (yyvsp[0].sval)); (yyval.sval) = multparam;}
-#line 1155 "gramar.tab.c"
+#line 1158 "gramar.tab.c"
     break;
 
   case 4: /* varlist: ID  */
-#line 62 "gramar.y"
+#line 65 "gramar.y"
                                                         {char *param = malloc(strlen((yyvsp[0].sval)));sprintf(param,"%s",(yyvsp[0].sval)); (yyval.sval) = param;}
-#line 1161 "gramar.tab.c"
+#line 1164 "gramar.tab.c"
     break;
 
   case 5: /* cmds: cmds cmd  */
-#line 65 "gramar.y"
+#line 68 "gramar.y"
                                         {char *comandos=malloc(strlen((yyvsp[-1].sval)) + strlen((yyvsp[0].sval)) + 2); sprintf(comandos, "%s\n\t%s", (yyvsp[-1].sval), (yyvsp[0].sval)); (yyval.sval)=comandos;}
-#line 1167 "gramar.tab.c"
+#line 1170 "gramar.tab.c"
     break;
 
   case 6: /* cmds: cmd  */
-#line 66 "gramar.y"
+#line 69 "gramar.y"
                                                         {char *comando=malloc(strlen((yyvsp[0].sval)) + 2); sprintf(comando, "\t%s", (yyvsp[0].sval)); (yyval.sval)=comando;}
-#line 1173 "gramar.tab.c"
+#line 1176 "gramar.tab.c"
     break;
 
   case 8: /* cmd: ENQUANTO ID FACA cmds FIM  */
-#line 71 "gramar.y"
+#line 74 "gramar.y"
                                                                         {char *loop = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[-1].sval))+16);sprintf(loop,"while(%s)\ndo\n\t%s\n\tend",(yyvsp[-3].sval),(yyvsp[-1].sval));(yyval.sval)=loop;}
-#line 1179 "gramar.tab.c"
+#line 1182 "gramar.tab.c"
     break;
 
   case 9: /* cmd: ENQUANTO comparation FACA cmds FIM  */
-#line 72 "gramar.y"
+#line 75 "gramar.y"
                                                                 {char *loop = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[-1].sval))+16);sprintf(loop,"while(%s)\ndo\n\t%s\n\tend",(yyvsp[-3].sval),(yyvsp[-1].sval));(yyval.sval)=loop;}
-#line 1185 "gramar.tab.c"
+#line 1188 "gramar.tab.c"
     break;
 
   case 10: /* cmd: FACA ID VEZES cmds FIM  */
-#line 73 "gramar.y"
+#line 76 "gramar.y"
                                                                 {char *forLoop=malloc(strlen((yyvsp[-3].sval)) + strlen((yyvsp[-1].sval)) + 20); sprintf(forLoop, "for i=%s, 1, -1 do\n\t%s\tend\n", (yyvsp[-3].sval), (yyvsp[-1].sval)); (yyval.sval) = forLoop;}
-#line 1191 "gramar.tab.c"
+#line 1194 "gramar.tab.c"
     break;
 
   case 11: /* cmd: INC OPENP ID CLOSEP  */
-#line 74 "gramar.y"
+#line 77 "gramar.y"
                                                                 {char *inc=malloc(strlen((yyvsp[-1].sval))*2 + 5); sprintf(inc, "%s = %s+1\n",(yyvsp[-1].sval),(yyvsp[-1].sval)); (yyval.sval) = inc;}
-#line 1197 "gramar.tab.c"
+#line 1200 "gramar.tab.c"
     break;
 
   case 12: /* cmd: ZERA OPENP ID CLOSEP  */
-#line 75 "gramar.y"
+#line 78 "gramar.y"
                                                                 {char *zerar=malloc(strlen((yyvsp[-1].sval)) + 6); sprintf(zerar, "%s = 0\n",(yyvsp[-1].sval)); (yyval.sval) = zerar;}
-#line 1203 "gramar.tab.c"
+#line 1206 "gramar.tab.c"
     break;
 
   case 13: /* cmd: SE comparation ENTAO cmds FIM  */
-#line 76 "gramar.y"
+#line 79 "gramar.y"
                                                         {char *condicional=malloc(strlen((yyvsp[-3].sval)) + strlen((yyvsp[-1].sval)) + 11); sprintf(condicional, "if %s then\n\t%s\nend", (yyvsp[-3].sval), (yyvsp[-1].sval)); (yyval.sval) = condicional;}
-#line 1209 "gramar.tab.c"
+#line 1212 "gramar.tab.c"
     break;
 
   case 14: /* cmd: SE comparation ENTAO cmds SENAO cmds FIM  */
-#line 77 "gramar.y"
+#line 80 "gramar.y"
                                                     {char *condicional=malloc(strlen((yyvsp[-5].sval)) + strlen((yyvsp[-3].sval)) + 15); sprintf(condicional, "if %s then\n\t%s\nelse\n\t%s\nend", (yyvsp[-5].sval), (yyvsp[-3].sval),(yyvsp[-1].sval)); (yyval.sval) = condicional;}
-#line 1215 "gramar.tab.c"
+#line 1218 "gramar.tab.c"
     break;
 
   case 18: /* declaration: ID ASSIGN INT  */
-#line 83 "gramar.y"
+#line 86 "gramar.y"
                                         {char *line = malloc(strlen((yyvsp[-2].sval))+strlen((yyvsp[0].sval))+3);sprintf(line,"%s = %s",(yyvsp[-2].sval),(yyvsp[0].sval));(yyval.sval)=line;}
-#line 1221 "gramar.tab.c"
+#line 1224 "gramar.tab.c"
     break;
 
   case 19: /* declaration: ID ASSIGN ID  */
-#line 84 "gramar.y"
+#line 87 "gramar.y"
                                         {char *line = malloc(strlen((yyvsp[-2].sval))+strlen((yyvsp[0].sval))+3);sprintf(line,"%s = %s",(yyvsp[-2].sval),(yyvsp[0].sval));(yyval.sval)=line;}
-#line 1227 "gramar.tab.c"
+#line 1230 "gramar.tab.c"
     break;
 
   case 21: /* comparation: ID ASSIGN ASSIGN ID  */
-#line 89 "gramar.y"
+#line 92 "gramar.y"
                                         {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s == %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;}
-#line 1233 "gramar.tab.c"
+#line 1236 "gramar.tab.c"
     break;
 
   case 22: /* comparation: ID ASSIGN ASSIGN INT  */
-#line 90 "gramar.y"
+#line 93 "gramar.y"
                                 {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s == %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;}
-#line 1239 "gramar.tab.c"
+#line 1242 "gramar.tab.c"
     break;
 
   case 23: /* comparation: ID MAIOR ASSIGN ID  */
-#line 91 "gramar.y"
+#line 94 "gramar.y"
                                         {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s >= %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;}
-#line 1245 "gramar.tab.c"
+#line 1248 "gramar.tab.c"
     break;
 
   case 24: /* comparation: ID MENOR ASSIGN ID  */
-#line 92 "gramar.y"
+#line 95 "gramar.y"
                                         {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s <= %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;}
-#line 1251 "gramar.tab.c"
+#line 1254 "gramar.tab.c"
     break;
 
   case 25: /* comparation: ID MAIOR ASSIGN INT  */
-#line 93 "gramar.y"
+#line 96 "gramar.y"
                                         {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s >= %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;}
-#line 1257 "gramar.tab.c"
+#line 1260 "gramar.tab.c"
     break;
 
   case 26: /* comparation: ID MENOR ASSIGN INT  */
-#line 94 "gramar.y"
+#line 97 "gramar.y"
                                         {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s <= %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;}
-#line 1263 "gramar.tab.c"
+#line 1266 "gramar.tab.c"
     break;
 
   case 27: /* comparation: ID MENOR INT  */
-#line 95 "gramar.y"
+#line 98 "gramar.y"
                                         {char *comp = malloc(strlen((yyvsp[-2].sval))+strlen((yyvsp[0].sval))+3);sprintf(comp,"%s < %s",(yyvsp[-2].sval),(yyvsp[0].sval));(yyval.sval)=comp;}
-#line 1269 "gramar.tab.c"
+#line 1272 "gramar.tab.c"
     break;
 
   case 28: /* comparation: ID MAIOR INT  */
-#line 96 "gramar.y"
+#line 99 "gramar.y"
                                         {char *comp = malloc(strlen((yyvsp[-2].sval))+strlen((yyvsp[0].sval))+3);sprintf(comp,"%s < %s",(yyvsp[-2].sval),(yyvsp[0].sval));(yyval.sval)=comp;}
-#line 1275 "gramar.tab.c"
+#line 1278 "gramar.tab.c"
     break;
 
   case 29: /* comparation: ID MENOR ID  */
-#line 97 "gramar.y"
+#line 100 "gramar.y"
                                                 {char *comp = malloc(strlen((yyvsp[-2].sval))+strlen((yyvsp[0].sval))+3);sprintf(comp,"%s < %s",(yyvsp[-2].sval),(yyvsp[0].sval));(yyval.sval)=comp;}
-#line 1281 "gramar.tab.c"
+#line 1284 "gramar.tab.c"
     break;
 
   case 30: /* comparation: ID MAIOR ID  */
-#line 98 "gramar.y"
+#line 101 "gramar.y"
                                                 {char *comp = malloc(strlen((yyvsp[-2].sval))+strlen((yyvsp[0].sval))+3);sprintf(comp,"%s < %s",(yyvsp[-2].sval),(yyvsp[0].sval));(yyval.sval)=comp;}
-#line 1287 "gramar.tab.c"
+#line 1290 "gramar.tab.c"
     break;
 
 
-#line 1291 "gramar.tab.c"
+#line 1294 "gramar.tab.c"
 
       default: break;
     }
@@ -1480,7 +1483,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 103 "gramar.y"
+#line 106 "gramar.y"
 
 
 int main(int argc, char *argv[]) {
@@ -1527,7 +1530,19 @@ int main(int argc, char *argv[]) {
 
 void yyerror(const char* s) {
 	closeIO();
-	fprintf(stderr, "Parse error: %s\n", s);
+	//fprintf(stderr, "Parse error: %s\n", s);
+	fprintf(stderr, "%s <+> Linha:%d|Letra:%d\n", s, linenum,wordnum);
+	fprintf(stderr, "\t%s\n\t", linebuf);
+	
+	for(int word = 0; word <= strlen(linebuf); word++)
+  	{
+		if(word==wordnum){
+			fprintf(stderr, "^");
+		}else{
+    		fprintf(stderr, "-");
+	  	}
+  	}
+	
 	exit(1);
 }
 

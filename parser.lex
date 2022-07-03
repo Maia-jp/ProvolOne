@@ -1,8 +1,11 @@
 %{
 #include <unistd.h>
 #include "gramar.tab.h"
+//Erro Handling Vars
+int linenum = 1;
+int wordnum = 1;
+char linebuf[500];
 %}
-
 %%
 ENTRADA         {return ENTRADA;}
 SAIDA           {return SAIDA;}
@@ -28,7 +31,10 @@ ZERA            {return ZERA;}
 "("             {return OPENP;}
 ")"             {return CLOSEP;}
 
+[ \t]           {wordnum++;}
 
-[ \t\n]           ;
+[\n]            {wordnum=1;}
+
+\n.*            {linenum++;strncpy(linebuf, yytext+1, sizeof(linebuf));yyless(1);}
 %%
 

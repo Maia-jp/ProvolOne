@@ -15,6 +15,9 @@ void yyerror(const char* s);
 void closeIO();
 
 int nFunctions = 0;
+extern int linenum;
+extern int wordnum;
+extern char linebuf[500];
 
 //Flags
 int FILEIO[2] = {0,0}; //{read,write}
@@ -146,7 +149,19 @@ int main(int argc, char *argv[]) {
 
 void yyerror(const char* s) {
 	closeIO();
-	fprintf(stderr, "Parse error: %s\n", s);
+	//fprintf(stderr, "Parse error: %s\n", s);
+	fprintf(stderr, "%s <+> Linha:%d|Letra:%d\n", s, linenum,wordnum);
+	fprintf(stderr, "\t%s\n\t", linebuf);
+	
+	for(int word = 0; word <= strlen(linebuf); word++)
+  	{
+		if(word==wordnum){
+			fprintf(stderr, "^");
+		}else{
+    		fprintf(stderr, "-");
+	  	}
+  	}
+	
 	exit(1);
 }
 
