@@ -1,6 +1,7 @@
 ENTRADA
-a a
+a d c
 SAIDA
-B B C
+B a
 a = 1
+INC(b)
 FIM

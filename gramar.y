@@ -13,16 +13,23 @@ extern FILE* yyin;
 
 void yyerror(const char* s);
 void closeIO();
+void verificarVarList(char* string);
+void removeChar(char * str, char charToRemmove);
+void adicionarVarTable(char *var);
+int verificarVarTable(char* var);
 
 int nFunctions = 0;
 extern int linenum;
 extern int wordnum;
 extern char linebuf[500];
+int varTableIndex = 0;
+char *varTable[500];
 
 //Flags
 int FILEIO[2] = {0,0}; //{read,write}
 
-//TODO: Verificacao de variaveis, Expressoes complexas, verficar arquivos com -Wcounterexamples, verificar shift reduce
+
+//TODO: Expressoes complexas, verficar arquivos com -Wcounterexamples, verificar shift reduce, concertar indentacao, outros tipos de program
 
 %}
 
@@ -61,8 +68,8 @@ int FILEIO[2] = {0,0}; //{read,write}
 program : ENTRADA varlist SAIDA varlist cmds FIM {printf("function foo%d (%s)\n%s\n\treturn %s\nend",nFunctions,$2,$5,$4);nFunctions++;}
 
 
-varlist: varlist ID 		{char *multparam=malloc(strlen($1)+strlen($2));sprintf(multparam, "%s, %s", $1, $2); $$ = multparam;}
-|	ID 						{char *param = malloc(strlen($1));sprintf(param,"%s",$1); $$ = param;}
+varlist: varlist ID 		{char *multparam=malloc(strlen($1)+strlen($2));sprintf(multparam, "%s, %s", $1, $2); $$ = multparam;verificarVarList(multparam);}
+|	ID 						{char *param = malloc(strlen($1));sprintf(param,"%s",$1); $$ = param;verificarVarList(param);}
 ;
 
 cmds: cmds cmd  			{char *comandos=malloc(strlen($1) + strlen($2) + 2); sprintf(comandos, "%s\n\t%s", $1, $2); $$=comandos;}
@@ -71,11 +78,11 @@ cmds: cmds cmd  			{char *comandos=malloc(strlen($1) + strlen($2) + 2); sprintf(
 
 
 cmd:
-|	ENQUANTO ID FACA cmds FIM					{char *loop = malloc(strlen($2)+strlen($4)+16);sprintf(loop,"while(%s)\ndo\n\t%s\n\tend",$2,$4);$$=loop;}
+|	ENQUANTO ID FACA cmds FIM					{char *loop = malloc(strlen($2)+strlen($4)+16);sprintf(loop,"while(%s)\ndo\n\t%s\n\tend",$2,$4);$$=loop;verificarVarTable($2);}
 |	ENQUANTO comparation FACA cmds FIM			{char *loop = malloc(strlen($2)+strlen($4)+16);sprintf(loop,"while(%s)\ndo\n\t%s\n\tend",$2,$4);$$=loop;}
 |	FACA ID VEZES cmds FIM           			{char *forLoop=malloc(strlen($2) + strlen($4) + 20); sprintf(forLoop, "for i=%s, 1, -1 do\n\t%s\tend\n", $2, $4); $$ = forLoop;}
-| 	INC OPENP ID CLOSEP              			{char *inc=malloc(strlen($3)*2 + 5); sprintf(inc, "%s = %s+1\n",$3,$3); $$ = inc;}
-| 	ZERA OPENP ID CLOSEP             			{char *zerar=malloc(strlen($3) + 6); sprintf(zerar, "%s = 0\n",$3); $$ = zerar;};
+| 	INC OPENP ID CLOSEP              			{char *inc=malloc(strlen($3)*2 + 5); sprintf(inc, "%s = %s+1\n",$3,$3); $$ = inc;verificarVarTable($3);}
+| 	ZERA OPENP ID CLOSEP             			{char *zerar=malloc(strlen($3) + 6); sprintf(zerar, "%s = 0\n",$3); $$ = zerar;verificarVarTable($3);}
 |	SE comparation ENTAO cmds FIM       		{char *condicional=malloc(strlen($2) + strlen($4) + 11); sprintf(condicional, "if %s then\n\t%s\nend", $2, $4); $$ = condicional;}
 |	SE comparation ENTAO cmds SENAO cmds FIM    {char *condicional=malloc(strlen($2) + strlen($4) + 15); sprintf(condicional, "if %s then\n\t%s\nelse\n\t%s\nend", $2, $4,$6); $$ = condicional;}
 |	comparation;
@@ -83,22 +90,22 @@ cmd:
 ;
 
 declaration:
-|	ID ASSIGN INT 			{char *line = malloc(strlen($1)+strlen($3)+3);sprintf(line,"%s = %s",$1,$3);$$=line;}
-|	ID ASSIGN ID 			{char *line = malloc(strlen($1)+strlen($3)+3);sprintf(line,"%s = %s",$1,$3);$$=line;}
+|	ID ASSIGN INT 			{char *line = malloc(strlen($1)+strlen($3)+3);sprintf(line,"%s = %s",$1,$3);$$=line;adicionarVarTable($1);}
+|	ID ASSIGN ID 			{char *line = malloc(strlen($1)+strlen($3)+3);sprintf(line,"%s = %s",$1,$3);$$=line;adicionarVarTable($1);verificarVarTable($3);}
 ;
 
 
 comparation:
-|	ID ASSIGN ASSIGN ID		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s == %s",$1,$4);$$=comp;}
-|	ID ASSIGN ASSIGN INT	{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s == %s",$1,$4);$$=comp;}
-|	ID MAIOR ASSIGN ID		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s >= %s",$1,$4);$$=comp;}
-|	ID MENOR ASSIGN ID		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s <= %s",$1,$4);$$=comp;}
-|	ID MAIOR ASSIGN INT		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s >= %s",$1,$4);$$=comp;}
-|	ID MENOR ASSIGN INT		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s <= %s",$1,$4);$$=comp;}
-|	ID MENOR INT			{char *comp = malloc(strlen($1)+strlen($3)+3);sprintf(comp,"%s < %s",$1,$3);$$=comp;}
-|	ID MAIOR INT			{char *comp = malloc(strlen($1)+strlen($3)+3);sprintf(comp,"%s < %s",$1,$3);$$=comp;}
-|	ID MENOR ID				{char *comp = malloc(strlen($1)+strlen($3)+3);sprintf(comp,"%s < %s",$1,$3);$$=comp;}
-|	ID MAIOR ID				{char *comp = malloc(strlen($1)+strlen($3)+3);sprintf(comp,"%s < %s",$1,$3);$$=comp;}
+|	ID ASSIGN ASSIGN ID		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s == %s",$1,$4);$$=comp;verificarVarTable($1);verificarVarTable($4);}
+|	ID ASSIGN ASSIGN INT	{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s == %s",$1,$4);$$=comp;verificarVarTable($1);}
+|	ID MAIOR ASSIGN ID		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s >= %s",$1,$4);$$=comp;verificarVarTable($1);verificarVarTable($4);}
+|	ID MENOR ASSIGN ID		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s <= %s",$1,$4);$$=comp;verificarVarTable($1);verificarVarTable($4);}
+|	ID MAIOR ASSIGN INT		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s >= %s",$1,$4);$$=comp;verificarVarTable($1);}
+|	ID MENOR ASSIGN INT		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s <= %s",$1,$4);$$=comp;verificarVarTable($1);}
+|	ID MENOR INT			{char *comp = malloc(strlen($1)+strlen($3)+3);sprintf(comp,"%s < %s",$1,$3);$$=comp;verificarVarTable($1);}
+|	ID MAIOR INT			{char *comp = malloc(strlen($1)+strlen($3)+3);sprintf(comp,"%s < %s",$1,$3);$$=comp;verificarVarTable($1);}
+|	ID MENOR ID				{char *comp = malloc(strlen($1)+strlen($3)+3);sprintf(comp,"%s < %s",$1,$3);$$=comp;verificarVarTable($1);verificarVarTable($3);}
+|	ID MAIOR ID				{char *comp = malloc(strlen($1)+strlen($3)+3);sprintf(comp,"%s < %s",$1,$3);$$=comp;verificarVarTable($1);verificarVarTable($3);}
 ;
 
 
@@ -150,7 +157,11 @@ int main(int argc, char *argv[]) {
 void yyerror(const char* s) {
 	closeIO();
 	//fprintf(stderr, "Parse error: %s\n", s);
-	fprintf(stderr, "%s <+> Linha:%d|Letra:%d\n", s, linenum,wordnum);
+	if(linenum || wordnum){
+		fprintf(stderr, "\n\n%s! <+> Linha:%d|Letra:%d\n", s, linenum,wordnum);
+	}else{
+		fprintf(stderr, "\n\n%s!\n", s);
+	}
 	fprintf(stderr, "\t%s\n\t", linebuf);
 	
 	for(int word = 0; word <= strlen(linebuf); word++)
@@ -165,6 +176,7 @@ void yyerror(const char* s) {
 	exit(1);
 }
 
+//AUX functions
 void closeIO(){
 	if(FILEIO[0]){
 		fclose(stdout);
@@ -173,4 +185,80 @@ void closeIO(){
 	if(FILEIO[0]){
 		fclose(stdin);
 	}
+}
+
+void adicionarVarTable(char *var){
+	varTable[varTableIndex] = malloc(sizeof(var));
+	sprintf(varTable[varTableIndex],"%s",var);
+	varTableIndex++;
+	varTableIndex = varTableIndex%499; //Volta ao indicie inical quando estoura o buffer
+}
+
+int verificarVarTable(char* var){
+	
+	for(int j=0;j<varTableIndex;j++){
+		if(!strcmp(varTable[j],var)){
+			return 1;
+		}
+	}
+
+	char *erroMsg = malloc(sizeof(var)+39);
+	sprintf(erroMsg,"Erro variavel '%s' nao foi declarada antes",var);
+	yyerror(erroMsg);
+	return 0;
+}
+
+//Verifica a existencia de Variaveis Repitidas na varlist
+void verificarVarList(char* string){
+	//Tokeniza Lista de Variaveis
+	char * token = strtok(string, " ");
+	char *varBuf[50];
+	int bufSize = 0;
+    
+	while( token != NULL ) {
+		removeChar(token,',');
+		varBuf[bufSize] = malloc(sizeof(token));
+    	sprintf(varBuf[bufSize],"%s",token);
+    	token = strtok(NULL, " ");
+		bufSize++;
+   	}
+
+	   //Verifica Duplicados
+	int no = bufSize;
+	for(int i=0; i<no; i++){
+		for(int j=i+1;j<no;j++){
+			if(!strcmp(varBuf[i],varBuf[j])){
+				sprintf(linebuf,"%s",varBuf[i]);
+				wordnum = 0;
+				linenum = 0;
+				yyerror("Erro de Variaveis Duplicadas");
+				break;
+			}
+		}
+	}
+
+	for(int i=0; i<no; i++){
+		adicionarVarTable(varBuf[i]);
+	}
+   
+
+
+}
+
+void removeChar(char * str, char charToRemmove){
+    int i, j;
+    int len = strlen(str);
+    for(i=0; i<len; i++)
+    {
+        if(str[i] == charToRemmove)
+        {
+            for(j=i; j<len; j++)
+            {
+                str[j] = str[j+1];
+            }
+            len--;
+            i--;
+        }
+    }
+    
 }
