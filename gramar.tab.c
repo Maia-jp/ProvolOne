@@ -99,7 +99,7 @@ char *varTable[500];
 int FILEIO[2] = {0,0}; //{read,write}
 
 
-//TODO: Expressoes complexas, verficar arquivos com -Wcounterexamples, verificar shift reduce
+//TODO: Expressoes complexas, verficar arquivos com -Wcounterexamples, verificar shift reduce, concertar indentacao, outros tipos de program
 
 
 #line 106 "gramar.tab.c"
@@ -483,18 +483,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  5
+#define YYFINAL  7
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   111
+#define YYLAST   127
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  21
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  7
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  30
+#define YYNRULES  31
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  67
+#define YYNSTATES  74
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   275
@@ -545,10 +545,10 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    68,    68,    71,    72,    75,    76,    80,    81,    82,
-      83,    84,    85,    86,    87,    88,    89,    92,    93,    94,
-      98,    99,   100,   101,   102,   103,   104,   105,   106,   107,
-     108
+       0,    68,    68,    69,    73,    74,    77,    78,    82,    83,
+      84,    85,    86,    87,    88,    89,    90,    91,    94,    95,
+      96,   100,   101,   102,   103,   104,   105,   106,   107,   108,
+     109,   110
 };
 #endif
 
@@ -577,7 +577,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-44)
+#define YYPACT_NINF (-20)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -591,13 +591,14 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      58,    11,    46,   -44,     2,   -44,   -44,    11,    79,    29,
-      66,    74,    71,    87,    93,    17,   -44,   -44,   -44,     4,
-       7,    67,    94,   100,    19,    88,    89,    43,    90,    29,
-     -44,   -44,   -44,   -44,    22,   -44,   -44,    36,   -44,   -44,
-      56,   101,   103,   105,    86,    86,    86,    86,   -44,   -44,
-     -44,   -44,   -44,   -44,   -44,   -44,    42,    50,    64,     3,
-     -44,   -44,   -44,   -44,    86,    72,   -44
+      45,    14,    34,    49,    34,   -20,    19,   -20,    20,   -20,
+      34,    34,    98,    98,    60,    44,    50,    53,    75,    76,
+      13,   -20,   -20,   -20,    47,    30,    86,   122,    84,    89,
+       1,    77,    92,    62,    82,    60,   -20,   -20,   -20,   -20,
+     -20,     0,   -20,   -20,     4,   -20,   -20,    17,   109,   110,
+     117,   105,   105,   105,   105,   -20,   -20,   -20,   -20,   -20,
+     -20,   -20,   -20,    61,    69,    83,    -1,   -20,   -20,   -20,
+     -20,   105,    91,   -20
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -605,25 +606,26 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,     0,     4,     0,     1,     3,     0,     7,     3,
-       0,     0,    20,     0,    20,     0,     6,    16,    15,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       2,     5,    19,    18,     0,    30,    28,     0,    29,    27,
-       0,     0,     0,     0,     7,     7,     7,     7,    21,    22,
-      23,    25,    24,    26,    11,    12,     0,     0,     0,     0,
-       8,     9,    10,    13,     7,     0,    14
+       0,     0,     0,     0,     0,     5,     0,     1,     0,     4,
+       0,     0,     8,     8,     4,     0,     0,    21,     0,    21,
+       0,     7,    17,    16,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     3,     6,     2,    20,
+      19,     0,    31,    29,     0,    30,    28,     0,     0,     0,
+       0,     8,     8,     8,     8,    22,    23,    24,    26,    25,
+      27,    12,    13,     0,     0,     0,     0,     9,    10,    11,
+      14,     8,     0,    15
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -44,   -44,   104,   -43,   -15,   -44,    35
+     -20,   -20,    32,   -13,   -19,   -20,    35
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     2,     4,    15,    16,    17,    18
+       0,     3,     6,    20,    21,    22,    23
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -631,65 +633,68 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      31,    56,    57,    58,    59,     6,    29,    32,    33,    34,
-      35,    36,    37,     7,     3,    63,    10,    11,    12,    13,
-      29,    65,    14,    64,    43,    48,    49,    20,    21,    30,
-      10,    11,    12,    13,    19,    44,    14,    20,    21,    50,
-      51,    31,    31,    31,    31,    29,     5,    25,    43,    28,
-      31,    20,    21,    29,    60,    10,    11,    12,    13,    52,
-      53,    14,    61,    10,    11,    12,    13,    29,     1,    14,
-      38,    39,    40,    22,    24,    29,    62,    10,    11,    12,
-      13,    23,     9,    14,    66,    10,    11,    12,    13,    29,
-      26,    14,    10,    11,    12,    13,    27,    41,    14,    10,
-      11,    12,    13,    42,    45,    14,    46,    54,    47,    55,
-      34,     8
+      24,    37,    35,    55,    56,    37,    50,    57,    58,    26,
+      27,    70,    15,    16,    17,    18,    35,    51,    19,    71,
+      59,    60,     9,     9,     4,    36,    15,    16,    17,    18,
+      10,    11,    19,    39,    40,    41,     8,     5,    63,    64,
+      65,    66,    12,    13,    37,    37,    37,    37,     1,     7,
+      35,    28,    31,    37,    34,     2,    30,    29,    72,    38,
+      15,    16,    17,    18,    35,    25,    19,    50,    26,    27,
+      26,    27,    35,    67,    15,    16,    17,    18,    32,    33,
+      19,    68,    15,    16,    17,    18,    35,    48,    19,    42,
+      43,    44,    49,    52,    35,    69,    15,    16,    17,    18,
+      54,    14,    19,    73,    15,    16,    17,    18,    35,    53,
+      19,    15,    16,    17,    18,    61,    62,    19,    15,    16,
+      17,    18,    41,     0,    19,    45,    46,    47
 };
 
 static const yytype_int8 yycheck[] =
 {
-      15,    44,    45,    46,    47,     3,     3,     3,     4,     5,
-       3,     4,     5,    11,     3,    12,    13,    14,    15,    16,
-       3,    64,    19,    20,     5,     3,     4,     8,     9,    12,
-      13,    14,    15,    16,     5,    16,    19,     8,     9,     3,
-       4,    56,    57,    58,    59,     3,     0,    12,     5,    14,
-      65,     8,     9,     3,    12,    13,    14,    15,    16,     3,
-       4,    19,    12,    13,    14,    15,    16,     3,    10,    19,
-       3,     4,     5,     7,     3,     3,    12,    13,    14,    15,
-      16,     7,     3,    19,    12,    13,    14,    15,    16,     3,
-       3,    19,    13,    14,    15,    16,     3,     3,    19,    13,
-      14,    15,    16,     3,    16,    19,    17,     6,    18,     6,
-       5,     7
+      13,    20,     3,     3,     4,    24,     5,     3,     4,     8,
+       9,    12,    13,    14,    15,    16,     3,    16,    19,    20,
+       3,     4,     3,     3,    10,    12,    13,    14,    15,    16,
+      11,    11,    19,     3,     4,     5,     4,     3,    51,    52,
+      53,    54,    10,    11,    63,    64,    65,    66,     3,     0,
+       3,     7,    17,    72,    19,    10,     3,     7,    71,    12,
+      13,    14,    15,    16,     3,     5,    19,     5,     8,     9,
+       8,     9,     3,    12,    13,    14,    15,    16,     3,     3,
+      19,    12,    13,    14,    15,    16,     3,     3,    19,     3,
+       4,     5,     3,    16,     3,    12,    13,    14,    15,    16,
+      18,     3,    19,    12,    13,    14,    15,    16,     3,    17,
+      19,    13,    14,    15,    16,     6,     6,    19,    13,    14,
+      15,    16,     5,    -1,    19,     3,     4,     5
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    10,    22,     3,    23,     0,     3,    11,    23,     3,
-      13,    14,    15,    16,    19,    24,    25,    26,    27,     5,
-       8,     9,     7,     7,     3,    27,     3,     3,    27,     3,
-      12,    25,     3,     4,     5,     3,     4,     5,     3,     4,
-       5,     3,     3,     5,    16,    16,    17,    18,     3,     4,
-       3,     4,     3,     4,     6,     6,    24,    24,    24,    24,
-      12,    12,    12,    12,    20,    24,    12
+       0,     3,    10,    22,    10,     3,    23,     0,    23,     3,
+      11,    11,    23,    23,     3,    13,    14,    15,    16,    19,
+      24,    25,    26,    27,    24,     5,     8,     9,     7,     7,
+       3,    27,     3,     3,    27,     3,    12,    25,    12,     3,
+       4,     5,     3,     4,     5,     3,     4,     5,     3,     3,
+       5,    16,    16,    17,    18,     3,     4,     3,     4,     3,
+       4,     6,     6,    24,    24,    24,    24,    12,    12,    12,
+      12,    20,    24,    12
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    21,    22,    23,    23,    24,    24,    25,    25,    25,
-      25,    25,    25,    25,    25,    25,    25,    26,    26,    26,
-      27,    27,    27,    27,    27,    27,    27,    27,    27,    27,
-      27
+       0,    21,    22,    22,    23,    23,    24,    24,    25,    25,
+      25,    25,    25,    25,    25,    25,    25,    25,    26,    26,
+      26,    27,    27,    27,    27,    27,    27,    27,    27,    27,
+      27,    27
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     6,     2,     1,     2,     1,     0,     5,     5,
-       5,     4,     4,     5,     7,     1,     1,     0,     3,     3,
-       0,     4,     4,     4,     4,     4,     4,     3,     3,     3,
-       3
+       0,     2,     7,     6,     2,     1,     2,     1,     0,     5,
+       5,     5,     4,     4,     5,     7,     1,     1,     0,     3,
+       3,     0,     4,     4,     4,     4,     4,     4,     3,     3,
+       3,     3
 };
 
 
@@ -1152,152 +1157,158 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 2: /* program: ENTRADA varlist SAIDA varlist cmds FIM  */
+  case 2: /* program: ID ENTRADA varlist SAIDA varlist cmds FIM  */
 #line 68 "gramar.y"
-                                                 {printf("function foo%d (%s)\n%s\n\treturn %s\nend",nFunctions,(yyvsp[-4].sval),(yyvsp[-1].sval),(yyvsp[-2].sval));nFunctions++;}
-#line 1159 "gramar.tab.c"
+                                                    {printf("function %s%d (%s)\n%s\n\treturn %s\nend", (yyvsp[-6].sval),nFunctions,(yyvsp[-4].sval),(yyvsp[-1].sval),(yyvsp[-2].sval));nFunctions++;}
+#line 1164 "gramar.tab.c"
     break;
 
-  case 3: /* varlist: varlist ID  */
-#line 71 "gramar.y"
+  case 3: /* program: ENTRADA varlist SAIDA varlist cmds FIM  */
+#line 69 "gramar.y"
+                                               {printf("function foo%d (%s)\n%s\n\treturn %s\nend",nFunctions,(yyvsp[-4].sval),(yyvsp[-1].sval),(yyvsp[-2].sval));nFunctions++;}
+#line 1170 "gramar.tab.c"
+    break;
+
+  case 4: /* varlist: varlist ID  */
+#line 73 "gramar.y"
                                 {char *multparam=malloc(strlen((yyvsp[-1].sval))+strlen((yyvsp[0].sval)));sprintf(multparam, "%s, %s", (yyvsp[-1].sval), (yyvsp[0].sval)); (yyval.sval) = multparam;verificarVarList(multparam);}
-#line 1165 "gramar.tab.c"
+#line 1176 "gramar.tab.c"
     break;
 
-  case 4: /* varlist: ID  */
-#line 72 "gramar.y"
+  case 5: /* varlist: ID  */
+#line 74 "gramar.y"
                                                         {char *param = malloc(strlen((yyvsp[0].sval)));sprintf(param,"%s",(yyvsp[0].sval)); (yyval.sval) = param;verificarVarList(param);}
-#line 1171 "gramar.tab.c"
+#line 1182 "gramar.tab.c"
     break;
 
-  case 5: /* cmds: cmds cmd  */
-#line 75 "gramar.y"
+  case 6: /* cmds: cmds cmd  */
+#line 77 "gramar.y"
                                         {char *comandos=malloc(strlen((yyvsp[-1].sval)) + strlen((yyvsp[0].sval)) + 2); sprintf(comandos, "%s\n\t%s", (yyvsp[-1].sval), (yyvsp[0].sval)); (yyval.sval)=comandos;}
-#line 1177 "gramar.tab.c"
+#line 1188 "gramar.tab.c"
     break;
 
-  case 6: /* cmds: cmd  */
-#line 76 "gramar.y"
+  case 7: /* cmds: cmd  */
+#line 78 "gramar.y"
                                                         {char *comando=malloc(strlen((yyvsp[0].sval)) + 2); sprintf(comando, "\t%s", (yyvsp[0].sval)); (yyval.sval)=comando;}
-#line 1183 "gramar.tab.c"
+#line 1194 "gramar.tab.c"
     break;
 
-  case 8: /* cmd: ENQUANTO ID FACA cmds FIM  */
-#line 81 "gramar.y"
-                                                                        {char *loop = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[-1].sval))+16);sprintf(loop,"while(%s)\ndo\n\t%s\n\tend",(yyvsp[-3].sval),(yyvsp[-1].sval));(yyval.sval)=loop;verificarVarTable((yyvsp[-3].sval));}
-#line 1189 "gramar.tab.c"
-    break;
-
-  case 9: /* cmd: ENQUANTO comparation FACA cmds FIM  */
-#line 82 "gramar.y"
-                                                                {char *loop = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[-1].sval))+16);sprintf(loop,"while(%s)\ndo\n\t%s\n\tend",(yyvsp[-3].sval),(yyvsp[-1].sval));(yyval.sval)=loop;}
-#line 1195 "gramar.tab.c"
-    break;
-
-  case 10: /* cmd: FACA ID VEZES cmds FIM  */
+  case 9: /* cmd: ENQUANTO ID FACA cmds FIM  */
 #line 83 "gramar.y"
-                                                                {char *forLoop=malloc(strlen((yyvsp[-3].sval)) + strlen((yyvsp[-1].sval)) + 20); sprintf(forLoop, "for i=%s, 1, -1 do\n\t%s\tend\n", (yyvsp[-3].sval), (yyvsp[-1].sval)); (yyval.sval) = forLoop;}
-#line 1201 "gramar.tab.c"
+                                                                        {char *loop = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[-1].sval))+16);sprintf(loop,"while(%s)\ndo\n\t%s\n\tend",(yyvsp[-3].sval),(yyvsp[-1].sval));(yyval.sval)=loop;verificarVarTable((yyvsp[-3].sval));}
+#line 1200 "gramar.tab.c"
     break;
 
-  case 11: /* cmd: INC OPENP ID CLOSEP  */
+  case 10: /* cmd: ENQUANTO comparation FACA cmds FIM  */
 #line 84 "gramar.y"
-                                                                {char *inc=malloc(strlen((yyvsp[-1].sval))*2 + 5); sprintf(inc, "%s = %s+1\n",(yyvsp[-1].sval),(yyvsp[-1].sval)); (yyval.sval) = inc;verificarVarTable((yyvsp[-1].sval));}
-#line 1207 "gramar.tab.c"
+                                                                {char *loop = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[-1].sval))+16);sprintf(loop,"while(%s)\ndo\n\t%s\n\tend",(yyvsp[-3].sval),(yyvsp[-1].sval));(yyval.sval)=loop;}
+#line 1206 "gramar.tab.c"
     break;
 
-  case 12: /* cmd: ZERA OPENP ID CLOSEP  */
+  case 11: /* cmd: FACA ID VEZES cmds FIM  */
 #line 85 "gramar.y"
-                                                                {char *zerar=malloc(strlen((yyvsp[-1].sval)) + 6); sprintf(zerar, "%s = 0\n",(yyvsp[-1].sval)); (yyval.sval) = zerar;verificarVarTable((yyvsp[-1].sval));}
-#line 1213 "gramar.tab.c"
+                                                                {char *forLoop=malloc(strlen((yyvsp[-3].sval)) + strlen((yyvsp[-1].sval)) + 20); sprintf(forLoop, "for i=%s, 1, -1 do\n\t%s\tend\n", (yyvsp[-3].sval), (yyvsp[-1].sval)); (yyval.sval) = forLoop;}
+#line 1212 "gramar.tab.c"
     break;
 
-  case 13: /* cmd: SE comparation ENTAO cmds FIM  */
+  case 12: /* cmd: INC OPENP ID CLOSEP  */
 #line 86 "gramar.y"
-                                                        {char *condicional=malloc(strlen((yyvsp[-3].sval)) + strlen((yyvsp[-1].sval)) + 11); sprintf(condicional, "if %s then\n\t%s\nend", (yyvsp[-3].sval), (yyvsp[-1].sval)); (yyval.sval) = condicional;}
-#line 1219 "gramar.tab.c"
+                                                                {char *inc=malloc(strlen((yyvsp[-1].sval))*2 + 5); sprintf(inc, "%s = %s+1\n",(yyvsp[-1].sval),(yyvsp[-1].sval)); (yyval.sval) = inc;verificarVarTable((yyvsp[-1].sval));}
+#line 1218 "gramar.tab.c"
     break;
 
-  case 14: /* cmd: SE comparation ENTAO cmds SENAO cmds FIM  */
+  case 13: /* cmd: ZERA OPENP ID CLOSEP  */
 #line 87 "gramar.y"
+                                                                {char *zerar=malloc(strlen((yyvsp[-1].sval)) + 6); sprintf(zerar, "%s = 0\n",(yyvsp[-1].sval)); (yyval.sval) = zerar;verificarVarTable((yyvsp[-1].sval));}
+#line 1224 "gramar.tab.c"
+    break;
+
+  case 14: /* cmd: SE comparation ENTAO cmds FIM  */
+#line 88 "gramar.y"
+                                                        {char *condicional=malloc(strlen((yyvsp[-3].sval)) + strlen((yyvsp[-1].sval)) + 11); sprintf(condicional, "if %s then\n\t%s\nend", (yyvsp[-3].sval), (yyvsp[-1].sval)); (yyval.sval) = condicional;}
+#line 1230 "gramar.tab.c"
+    break;
+
+  case 15: /* cmd: SE comparation ENTAO cmds SENAO cmds FIM  */
+#line 89 "gramar.y"
                                                     {char *condicional=malloc(strlen((yyvsp[-5].sval)) + strlen((yyvsp[-3].sval)) + 15); sprintf(condicional, "if %s then\n\t%s\nelse\n\t%s\nend", (yyvsp[-5].sval), (yyvsp[-3].sval),(yyvsp[-1].sval)); (yyval.sval) = condicional;}
-#line 1225 "gramar.tab.c"
+#line 1236 "gramar.tab.c"
     break;
 
-  case 18: /* declaration: ID ASSIGN INT  */
-#line 93 "gramar.y"
+  case 19: /* declaration: ID ASSIGN INT  */
+#line 95 "gramar.y"
                                         {char *line = malloc(strlen((yyvsp[-2].sval))+strlen((yyvsp[0].sval))+3);sprintf(line,"%s = %s",(yyvsp[-2].sval),(yyvsp[0].sval));(yyval.sval)=line;adicionarVarTable((yyvsp[-2].sval));}
-#line 1231 "gramar.tab.c"
+#line 1242 "gramar.tab.c"
     break;
 
-  case 19: /* declaration: ID ASSIGN ID  */
-#line 94 "gramar.y"
+  case 20: /* declaration: ID ASSIGN ID  */
+#line 96 "gramar.y"
                                         {char *line = malloc(strlen((yyvsp[-2].sval))+strlen((yyvsp[0].sval))+3);sprintf(line,"%s = %s",(yyvsp[-2].sval),(yyvsp[0].sval));(yyval.sval)=line;adicionarVarTable((yyvsp[-2].sval));verificarVarTable((yyvsp[0].sval));}
-#line 1237 "gramar.tab.c"
+#line 1248 "gramar.tab.c"
     break;
 
-  case 21: /* comparation: ID ASSIGN ASSIGN ID  */
-#line 99 "gramar.y"
-                                        {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s == %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-3].sval));verificarVarTable((yyvsp[0].sval));}
-#line 1243 "gramar.tab.c"
-    break;
-
-  case 22: /* comparation: ID ASSIGN ASSIGN INT  */
-#line 100 "gramar.y"
-                                {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s == %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-3].sval));}
-#line 1249 "gramar.tab.c"
-    break;
-
-  case 23: /* comparation: ID MAIOR ASSIGN ID  */
+  case 22: /* comparation: ID ASSIGN ASSIGN ID  */
 #line 101 "gramar.y"
-                                        {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s >= %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-3].sval));verificarVarTable((yyvsp[0].sval));}
-#line 1255 "gramar.tab.c"
+                                        {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s == %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-3].sval));verificarVarTable((yyvsp[0].sval));}
+#line 1254 "gramar.tab.c"
     break;
 
-  case 24: /* comparation: ID MENOR ASSIGN ID  */
+  case 23: /* comparation: ID ASSIGN ASSIGN INT  */
 #line 102 "gramar.y"
-                                        {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s <= %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-3].sval));verificarVarTable((yyvsp[0].sval));}
-#line 1261 "gramar.tab.c"
+                                {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s == %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-3].sval));}
+#line 1260 "gramar.tab.c"
     break;
 
-  case 25: /* comparation: ID MAIOR ASSIGN INT  */
+  case 24: /* comparation: ID MAIOR ASSIGN ID  */
 #line 103 "gramar.y"
-                                        {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s >= %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-3].sval));}
-#line 1267 "gramar.tab.c"
+                                        {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s >= %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-3].sval));verificarVarTable((yyvsp[0].sval));}
+#line 1266 "gramar.tab.c"
     break;
 
-  case 26: /* comparation: ID MENOR ASSIGN INT  */
+  case 25: /* comparation: ID MENOR ASSIGN ID  */
 #line 104 "gramar.y"
-                                        {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s <= %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-3].sval));}
-#line 1273 "gramar.tab.c"
+                                        {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s <= %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-3].sval));verificarVarTable((yyvsp[0].sval));}
+#line 1272 "gramar.tab.c"
     break;
 
-  case 27: /* comparation: ID MENOR INT  */
+  case 26: /* comparation: ID MAIOR ASSIGN INT  */
 #line 105 "gramar.y"
-                                        {char *comp = malloc(strlen((yyvsp[-2].sval))+strlen((yyvsp[0].sval))+3);sprintf(comp,"%s < %s",(yyvsp[-2].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-2].sval));}
-#line 1279 "gramar.tab.c"
+                                        {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s >= %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-3].sval));}
+#line 1278 "gramar.tab.c"
     break;
 
-  case 28: /* comparation: ID MAIOR INT  */
+  case 27: /* comparation: ID MENOR ASSIGN INT  */
 #line 106 "gramar.y"
-                                        {char *comp = malloc(strlen((yyvsp[-2].sval))+strlen((yyvsp[0].sval))+3);sprintf(comp,"%s < %s",(yyvsp[-2].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-2].sval));}
-#line 1285 "gramar.tab.c"
+                                        {char *comp = malloc(strlen((yyvsp[-3].sval))+strlen((yyvsp[0].sval))+4);sprintf(comp,"%s <= %s",(yyvsp[-3].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-3].sval));}
+#line 1284 "gramar.tab.c"
     break;
 
-  case 29: /* comparation: ID MENOR ID  */
+  case 28: /* comparation: ID MENOR INT  */
 #line 107 "gramar.y"
-                                                {char *comp = malloc(strlen((yyvsp[-2].sval))+strlen((yyvsp[0].sval))+3);sprintf(comp,"%s < %s",(yyvsp[-2].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-2].sval));verificarVarTable((yyvsp[0].sval));}
-#line 1291 "gramar.tab.c"
+                                        {char *comp = malloc(strlen((yyvsp[-2].sval))+strlen((yyvsp[0].sval))+3);sprintf(comp,"%s < %s",(yyvsp[-2].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-2].sval));}
+#line 1290 "gramar.tab.c"
     break;
 
-  case 30: /* comparation: ID MAIOR ID  */
+  case 29: /* comparation: ID MAIOR INT  */
 #line 108 "gramar.y"
+                                        {char *comp = malloc(strlen((yyvsp[-2].sval))+strlen((yyvsp[0].sval))+3);sprintf(comp,"%s < %s",(yyvsp[-2].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-2].sval));}
+#line 1296 "gramar.tab.c"
+    break;
+
+  case 30: /* comparation: ID MENOR ID  */
+#line 109 "gramar.y"
                                                 {char *comp = malloc(strlen((yyvsp[-2].sval))+strlen((yyvsp[0].sval))+3);sprintf(comp,"%s < %s",(yyvsp[-2].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-2].sval));verificarVarTable((yyvsp[0].sval));}
-#line 1297 "gramar.tab.c"
+#line 1302 "gramar.tab.c"
+    break;
+
+  case 31: /* comparation: ID MAIOR ID  */
+#line 110 "gramar.y"
+                                                {char *comp = malloc(strlen((yyvsp[-2].sval))+strlen((yyvsp[0].sval))+3);sprintf(comp,"%s < %s",(yyvsp[-2].sval),(yyvsp[0].sval));(yyval.sval)=comp;verificarVarTable((yyvsp[-2].sval));verificarVarTable((yyvsp[0].sval));}
+#line 1308 "gramar.tab.c"
     break;
 
 
-#line 1301 "gramar.tab.c"
+#line 1312 "gramar.tab.c"
 
       default: break;
     }
@@ -1490,7 +1501,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 113 "gramar.y"
+#line 115 "gramar.y"
 
 
 int main(int argc, char *argv[]) {
@@ -1537,7 +1548,6 @@ int main(int argc, char *argv[]) {
 
 void yyerror(const char* s) {
 	closeIO();
-	//fprintf(stderr, "Parse error: %s\n", s);
 	if(linenum || wordnum){
 		fprintf(stderr, "\n\n%s! <+> Linha:%d|Letra:%d\n", s, linenum,wordnum);
 	}else{

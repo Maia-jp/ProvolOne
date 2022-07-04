@@ -65,7 +65,9 @@ int FILEIO[2] = {0,0}; //{read,write}
 
 /* Regras Gramaticais */
 %%
-program : ENTRADA varlist SAIDA varlist cmds FIM {printf("function foo%d (%s)\n%s\n\treturn %s\nend",nFunctions,$2,$5,$4);nFunctions++;}
+program : ID ENTRADA varlist SAIDA varlist cmds FIM {printf("function %s (%s)\n%s\n\treturn %s\nend", $1,$3,$6,$5);nFunctions++;} 
+|	ENTRADA varlist SAIDA varlist cmds FIM {printf("function foo(%s)\n%s\n\treturn %s\nend",$2,$5,$4);nFunctions++;} 
+;
 
 
 varlist: varlist ID 		{char *multparam=malloc(strlen($1)+strlen($2));sprintf(multparam, "%s, %s", $1, $2); $$ = multparam;verificarVarList(multparam);}
@@ -156,7 +158,6 @@ int main(int argc, char *argv[]) {
 
 void yyerror(const char* s) {
 	closeIO();
-	//fprintf(stderr, "Parse error: %s\n", s);
 	if(linenum || wordnum){
 		fprintf(stderr, "\n\n%s! <+> Linha:%d|Letra:%d\n", s, linenum,wordnum);
 	}else{
