@@ -79,26 +79,23 @@ cmds: cmds cmd  			{char *comandos=malloc(strlen($1) + strlen($2) + 2); sprintf(
 ;
 
 
-cmd:
-|	ENQUANTO ID FACA cmds FIM					{char *loop = malloc(strlen($2)+strlen($4)+16);sprintf(loop,"while(%s)\ndo\n\t%s\n\tend",$2,$4);$$=loop;verificarVarTable($2);}
+cmd: ENQUANTO ID FACA cmds FIM					{char *loop = malloc(strlen($2)+strlen($4)+16);sprintf(loop,"while(%s)\ndo\n\t%s\n\tend",$2,$4);$$=loop;verificarVarTable($2);}
 |	ENQUANTO comparation FACA cmds FIM			{char *loop = malloc(strlen($2)+strlen($4)+16);sprintf(loop,"while(%s)\ndo\n\t%s\n\tend",$2,$4);$$=loop;}
-|	FACA ID VEZES cmds FIM           			{char *forLoop=malloc(strlen($2) + strlen($4) + 20); sprintf(forLoop, "for i=%s, 1, -1 do\n\t%s\tend\n", $2, $4); $$ = forLoop;}
+|	FACA ID VEZES cmds FIM           			{char *forLoop=malloc(strlen($2) + strlen($4) + 20); sprintf(forLoop, "for i = %s, 1, -1 do\n\t%s\n\tend", $2, $4); $$ = forLoop;}
 | 	INC OPENP ID CLOSEP              			{char *inc=malloc(strlen($3)*2 + 5); sprintf(inc, "%s = %s+1\n",$3,$3); $$ = inc;verificarVarTable($3);}
 | 	ZERA OPENP ID CLOSEP             			{char *zerar=malloc(strlen($3) + 6); sprintf(zerar, "%s = 0\n",$3); $$ = zerar;verificarVarTable($3);}
-|	SE comparation ENTAO cmds FIM       		{char *condicional=malloc(strlen($2) + strlen($4) + 11); sprintf(condicional, "if %s then\n\t%s\nend", $2, $4); $$ = condicional;}
-|	SE comparation ENTAO cmds SENAO cmds FIM    {char *condicional=malloc(strlen($2) + strlen($4) + 15); sprintf(condicional, "if %s then\n\t%s\nelse\n\t%s\nend", $2, $4,$6); $$ = condicional;}
+|	SE comparation ENTAO cmds FIM       		{char *condicional=malloc(strlen($2) + strlen($4) + 11); sprintf(condicional, "if %s then\n\t\t%s\nend", $2, $4); $$ = condicional;}
+|	SE comparation ENTAO cmds SENAO cmds FIM    {char *condicional=malloc(strlen($2) + strlen($4) + 15); sprintf(condicional, "if %s then\n\t\t%s\t\telse\n\t\t%s\t\tend", $2, $4,$6); $$ = condicional;}
 |	comparation;
 |	declaration;
 ;
 
-declaration:
-|	ID ASSIGN INT 			{char *line = malloc(strlen($1)+strlen($3)+3);sprintf(line,"%s = %s",$1,$3);$$=line;adicionarVarTable($1);}
+declaration: ID ASSIGN INT 			{char *line = malloc(strlen($1)+strlen($3)+3);sprintf(line,"%s = %s",$1,$3);$$=line;adicionarVarTable($1);}
 |	ID ASSIGN ID 			{char *line = malloc(strlen($1)+strlen($3)+3);sprintf(line,"%s = %s",$1,$3);$$=line;adicionarVarTable($1);verificarVarTable($3);}
 ;
 
 
-comparation:
-|	ID ASSIGN ASSIGN ID		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s == %s",$1,$4);$$=comp;verificarVarTable($1);verificarVarTable($4);}
+comparation: ID ASSIGN ASSIGN ID		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s == %s",$1,$4);$$=comp;verificarVarTable($1);verificarVarTable($4);}
 |	ID ASSIGN ASSIGN INT	{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s == %s",$1,$4);$$=comp;verificarVarTable($1);}
 |	ID MAIOR ASSIGN ID		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s >= %s",$1,$4);$$=comp;verificarVarTable($1);verificarVarTable($4);}
 |	ID MENOR ASSIGN ID		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s <= %s",$1,$4);$$=comp;verificarVarTable($1);verificarVarTable($4);}
