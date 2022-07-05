@@ -1,14 +1,14 @@
-/* A Bison parser, made by GNU Bison 3.8.2.  */
+/* A Bison parser, made by GNU Bison 2.3.  */
 
-/* Bison interface for Yacc-like parsers in C
+/* Skeleton interface for Bison's Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2021 Free Software Foundation,
-   Inc.
+   Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
+   Free Software Foundation, Inc.
 
-   This program is free software: you can redistribute it and/or modify
+   This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
+   the Free Software Foundation; either version 2, or (at your option)
+   any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,7 +16,9 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -31,77 +33,77 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
-   especially those whose name start with YY_ or yy_.  They are
-   private implementation details that can be changed or removed.  */
-
-#ifndef YY_YY_GRAMAR_TAB_H_INCLUDED
-# define YY_YY_GRAMAR_TAB_H_INCLUDED
-/* Debug traces.  */
-#ifndef YYDEBUG
-# define YYDEBUG 0
-#endif
-#if YYDEBUG
-extern int yydebug;
-#endif
-
-/* Token kinds.  */
+/* Tokens.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
-  enum yytokentype
-  {
-    YYEMPTY = -2,
-    YYEOF = 0,                     /* "end of file"  */
-    YYerror = 256,                 /* error  */
-    YYUNDEF = 257,                 /* "invalid token"  */
-    ID = 258,                      /* ID  */
-    INT = 259,                     /* INT  */
-    ASSIGN = 260,                  /* ASSIGN  */
-    CLOSEP = 261,                  /* CLOSEP  */
-    OPENP = 262,                   /* OPENP  */
-    MAIOR = 263,                   /* MAIOR  */
-    MENOR = 264,                   /* MENOR  */
-    ENTRADA = 265,                 /* ENTRADA  */
-    SAIDA = 266,                   /* SAIDA  */
-    FIM = 267,                     /* FIM  */
-    INC = 268,                     /* INC  */
-    ZERA = 269,                    /* ZERA  */
-    MAIS = 270,                    /* MAIS  */
-    MENOS = 271,                   /* MENOS  */
-    MULT = 272,                    /* MULT  */
-    DIVI = 273,                    /* DIVI  */
-    ENQUANTO = 274,                /* ENQUANTO  */
-    FACA = 275,                    /* FACA  */
-    VEZES = 276,                   /* VEZES  */
-    ENTAO = 277,                   /* ENTAO  */
-    SE = 278,                      /* SE  */
-    SENAO = 279                    /* SENAO  */
-  };
-  typedef enum yytokentype yytoken_kind_t;
+   /* Put the tokens into the symbol table, so that GDB and other debuggers
+      know about them.  */
+   enum yytokentype {
+     ID = 258,
+     INT = 259,
+     ASSIGN = 260,
+     CLOSEP = 261,
+     OPENP = 262,
+     MAIOR = 263,
+     MENOR = 264,
+     MAIS = 265,
+     MENOS = 266,
+     MULT = 267,
+     DIVI = 268,
+     ENTRADA = 269,
+     SAIDA = 270,
+     FIM = 271,
+     INC = 272,
+     ZERA = 273,
+     ENQUANTO = 274,
+     FACA = 275,
+     VEZES = 276,
+     ENTAO = 277,
+     SE = 278,
+     SENAO = 279
+   };
 #endif
+/* Tokens.  */
+#define ID 258
+#define INT 259
+#define ASSIGN 260
+#define CLOSEP 261
+#define OPENP 262
+#define MAIOR 263
+#define MENOR 264
+#define MAIS 265
+#define MENOS 266
+#define MULT 267
+#define DIVI 268
+#define ENTRADA 269
+#define SAIDA 270
+#define FIM 271
+#define INC 272
+#define ZERA 273
+#define ENQUANTO 274
+#define FACA 275
+#define VEZES 276
+#define ENTAO 277
+#define SE 278
+#define SENAO 279
 
-/* Value type.  */
+
+
+
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-union YYSTYPE
-{
+typedef union YYSTYPE
 #line 37 "gramar.y"
-
+{
   int ival;
   char *sval;
-
-#line 93 "gramar.tab.h"
-
-};
-typedef union YYSTYPE YYSTYPE;
-# define YYSTYPE_IS_TRIVIAL 1
+}
+/* Line 1529 of yacc.c.  */
+#line 102 "gramar.tab.h"
+	YYSTYPE;
+# define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
+# define YYSTYPE_IS_TRIVIAL 1
 #endif
-
 
 extern YYSTYPE yylval;
 
-
-int yyparse (void);
-
-
-#endif /* !YY_YY_GRAMAR_TAB_H_INCLUDED  */

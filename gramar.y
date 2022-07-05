@@ -47,16 +47,16 @@ int FILEIO[2] = {0,0}; //{read,write}
 %token CLOSEP OPENP
 %token <sval> MAIOR
 %token <sval> MENOR
+%token <sval> MAIS
+%token <sval> MENOS
+%token <sval> MULT
+%token <sval> DIVI
 /* Tokens avancados */
 %token ENTRADA
 %token SAIDA
 %token FIM
 %token INC
 %token ZERA
-%token MAIS
-%token MENOS
-%token MULT
-%token DIVI
 /* Tokens De Fluxo de Comando */
 %token ENQUANTO
 %token FACA
@@ -65,7 +65,7 @@ int FILEIO[2] = {0,0}; //{read,write}
 %token SE
 %token SENAO
 /* Gramatica */
-%type <sval> program varlist cmd cmds declaration comparation MAIS MENOS MULT DIVI;
+%type <sval> program varlist cmd cmds declaration comparation;
 
 /* Regras Gramaticais */
 %%
