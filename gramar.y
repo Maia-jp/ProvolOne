@@ -53,6 +53,10 @@ int FILEIO[2] = {0,0}; //{read,write}
 %token FIM
 %token INC
 %token ZERA
+%token MAIS
+%token MENOS
+%token MULT
+%token DIVI
 /* Tokens De Fluxo de Comando */
 %token ENQUANTO
 %token FACA
@@ -61,7 +65,7 @@ int FILEIO[2] = {0,0}; //{read,write}
 %token SE
 %token SENAO
 /* Gramatica */
-%type <sval> program varlist cmd cmds declaration comparation;
+%type <sval> program varlist cmd cmds declaration comparation MAIS MENOS MULT DIVI;
 
 /* Regras Gramaticais */
 %%
@@ -92,7 +96,12 @@ cmd: ENQUANTO ID FACA cmds FIM					{char *loop = malloc(strlen($2)+strlen($4)+16
 
 declaration: ID ASSIGN INT 			{char *line = malloc(strlen($1)+strlen($3)+3);sprintf(line,"%s = %s",$1,$3);$$=line;adicionarVarTable($1);}
 |	ID ASSIGN ID 			{char *line = malloc(strlen($1)+strlen($3)+3);sprintf(line,"%s = %s",$1,$3);$$=line;adicionarVarTable($1);verificarVarTable($3);}
+|	ID ASSIGN INT MAIS INT	{char *line = malloc(strlen($1)+strlen($3)+5);sprintf(line,"%s = %s+%s ",$1,$3,$5);$$=line;}
+|	ID ASSIGN INT MENOS INT	{char *line = malloc(strlen($1)+strlen($3)+5);sprintf(line,"%s = %s-%s ",$1,$3,$5);$$=line;}
+|	ID ASSIGN INT MULT INT	{char *line = malloc(strlen($1)+strlen($3)+5);sprintf(line,"%s = %s*%s ",$1,$3,$5);$$=line;}
+|	ID ASSIGN INT DIVI INT	{char *line = malloc(strlen($1)+strlen($3)+5);sprintf(line,"%s = %s/%s ",$1,$3,$5);$$=line;}
 ;
+
 
 
 comparation: ID ASSIGN ASSIGN ID		{char *comp = malloc(strlen($1)+strlen($4)+4);sprintf(comp,"%s == %s",$1,$4);$$=comp;verificarVarTable($1);verificarVarTable($4);}

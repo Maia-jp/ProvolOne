@@ -24,6 +24,10 @@ ZERA            {return ZERA;}
 
 [A-Za-z]+       {yylval.sval = strdup(yytext);return ID;}
 [0-9]+          {yylval.sval = strdup(yytext); return INT;}
+"+"             {return MAIS;}
+"-"             {return MENOS;}
+"*"             {return MULT;}
+"/"             {return DIVI;}
 "="             {return ASSIGN;}
 ">"             {return MAIOR;}
 "<"             {return MENOR;}

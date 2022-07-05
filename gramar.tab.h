@@ -66,12 +66,16 @@ extern int yydebug;
     FIM = 267,                     /* FIM  */
     INC = 268,                     /* INC  */
     ZERA = 269,                    /* ZERA  */
-    ENQUANTO = 270,                /* ENQUANTO  */
-    FACA = 271,                    /* FACA  */
-    VEZES = 272,                   /* VEZES  */
-    ENTAO = 273,                   /* ENTAO  */
-    SE = 274,                      /* SE  */
-    SENAO = 275                    /* SENAO  */
+    MAIS = 270,                    /* MAIS  */
+    MENOS = 271,                   /* MENOS  */
+    MULT = 272,                    /* MULT  */
+    DIVI = 273,                    /* DIVI  */
+    ENQUANTO = 274,                /* ENQUANTO  */
+    FACA = 275,                    /* FACA  */
+    VEZES = 276,                   /* VEZES  */
+    ENTAO = 277,                   /* ENTAO  */
+    SE = 278,                      /* SE  */
+    SENAO = 279                    /* SENAO  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -85,7 +89,7 @@ union YYSTYPE
   int ival;
   char *sval;
 
-#line 89 "gramar.tab.h"
+#line 93 "gramar.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
