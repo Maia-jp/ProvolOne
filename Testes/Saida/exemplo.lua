@@ -1,0 +1,9 @@
+function Program (X)
+	Z = Y
+	while(X)
+do
+		Z = Z+1
+
+	end
+	return Z
+end

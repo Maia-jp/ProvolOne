@@ -1,0 +1,10 @@
+Program ENTRADA 
+        X Y
+        SAIDA  Z B A
+        A = 0
+        B = 0
+        Z=Y
+        ENQUANTO X FACA
+        INC(Z) FIM
+        FIM
+        

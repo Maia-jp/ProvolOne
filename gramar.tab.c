@@ -1635,8 +1635,12 @@ int verificarVarTable(char* var){
 
 //Verifica a existencia de Variaveis Repitidas na varlist
 void verificarVarList(char* string){
+	//Copia conteudos string
+	char * cpstring = malloc(sizeof(string));
+	sprintf(cpstring,"%s",string);
+
 	//Tokeniza Lista de Variaveis
-	char * token = strtok(string, " ");
+	char * token = strtok(cpstring, " ");
 	char *varBuf[50];
 	int bufSize = 0;
     
